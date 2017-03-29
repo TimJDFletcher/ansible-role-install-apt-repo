@@ -1,0 +1,27 @@
+---
+# tasks file for roles/install-apt-repo
+- name: Install apt support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+
+- name: Install {{ repository }} repository
+  apt_repository:
+    repo: "{{ configured_apt_repositories[repository]['url'] }}"
+    state: present
+    update_cache: true
+    filename: "{{ repository }}"
+
+- name: Install GPG keys
+  apt_key:
+    id: "{{ item }}"
+    state: present
+    keyserver: pool.sks-keyservers.net
+  with_items:
+    - "{{ configured_apt_repositories[repository]['gpg_keys'] }}"
+  when:
+    - ("{{ configured_apt_repositories[repository]['gpg_keys'] }}" is defined)
