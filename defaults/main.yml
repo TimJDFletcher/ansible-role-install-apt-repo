@@ -11,4 +11,10 @@ configured_apt_repositories:
       - 58118E89F3A912897C070ADBF76221572C52609D
       - DD911E995A64A202E85907D6BC14F10B6D085F96
   dell:
-    url: deb http://linux.dell.com/repo/community/deb/latest /' | sudo tee -a /etc/apt/sources.list.d/linux.dell.com.sources.list
+    url: deb http://linux.dell.com/repo/community/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} openmanage
+    gpg_keys:
+      - 1285491434D8786F
+  hwraid:
+    url: "deb http://hwraid.le-vert.net/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main"
+    gpg_keys:
+      - 6005210E23B3D3B4
