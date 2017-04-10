@@ -16,8 +16,6 @@
     keyserver: pool.sks-keyservers.net
   with_items:
     - "{{ configured_apt_repositories[repository]['gpg_keys'] }}"
-  when:
-    - ("{{ configured_apt_repositories[repository]['gpg_keys'] }}" is defined)
 
 - name: Install {{ repository }} repository
   apt_repository:
