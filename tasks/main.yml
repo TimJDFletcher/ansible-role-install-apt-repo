@@ -24,3 +24,7 @@
     update_cache: true
     filename: "{{ repository }}"
 
+- name: Run post install command
+  command: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
+  when: configured_apt_repositories[repository]['post_install_cmd'] is defined
+  changed_when: false
