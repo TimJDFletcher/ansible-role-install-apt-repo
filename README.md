@@ -15,6 +15,11 @@ Call the role with the single variable `repository` for the repo to install.
 
 The repo contains a set of pre-defined repos in defaults/main.yml in the hash 'configured_apt_repositories', to add to this list please open a PR.
 
+To define a new repo you need to following facts:
+
+* repo url (https prefered)
+* repo gpg signing key (required)
+
 Dependencies
 ------------
 
@@ -28,6 +33,17 @@ Example to enable the Debian backports repo
     - hosts: servers
       roles:
          - { role: install-apt-repo, repository: backports }
+
+Supported Repos
+-------
+
+* backports - Debian / Ubuntu backports to allow for newer packages on older distros, only update packages you need.
+* docker - Offical upstream docker packages
+* hwraid - Unoffical hardware raid management tools
+* dell - Dell hardware management tools
+* java - Webupd8team java repo, for oracle JDK / JRE
+* newrelic - New relic repo
+* newrelic-infra - New relic infrastructure repo
 
 Improvements
 -------
