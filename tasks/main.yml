@@ -25,11 +25,7 @@
     filename: "{{ repository }}"
 
 - name: Run post install command
-  command: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
+  shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
   when: configured_apt_repositories[repository]['post_install_cmd'] is defined
   changed_when: false
 
-- name: Update package list
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
