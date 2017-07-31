@@ -27,7 +27,7 @@ configured_apt_repositories:
   java:
     url: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu/ xenial main" 
     gpg_keys: EEA14886
-    post_install_cmd: "echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 select true | sudo /usr/bin/debconf-set-selections"
+    post_install_cmd: "echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 select true | /usr/bin/debconf-set-selections"
   newrelic:
     url: "deb http://apt.newrelic.com/debian/ newrelic non-free"
     gpg_keys: 548C16BF
