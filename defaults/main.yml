@@ -32,5 +32,5 @@ configured_apt_repositories:
     url: "deb http://apt.newrelic.com/debian/ newrelic non-free"
     gpg_keys: 548C16BF
   newrelic-infra:
-    url: "deb https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
+    url: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
     gpg_keys: BB29EE038ECCE87C

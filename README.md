@@ -1,6 +1,8 @@
 install-apt-repo
 =========
 
+## __NOTE__: This repo is deprecated! Its features are implemented in  [ansible-role-laterooms-utils](https://github.com/LateRoomsGroup/ansible-role-laterooms-utils)
+
 Role to install apt repos
 
 Requirements
