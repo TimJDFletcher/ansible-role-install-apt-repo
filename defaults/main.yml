@@ -34,6 +34,6 @@ configured_apt_repositories:
   newrelic-infra:
     url: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
     gpg_keys: BB29EE038ECCE87C
-  elastic:
+  artifacts_elastic_co_packages_5_x_apt:
     url: "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
     gpg_keys: D27D666CD88E42B4
