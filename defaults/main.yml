@@ -25,14 +25,14 @@ configured_apt_repositories:
     url: "deb http://ftp.uk.debian.org/debian/ jessie contrib"
     gpg_keys:
   java:
-    url: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu/ xenial main" 
+    url: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu/ {{ ansible_distribution_release }} main" 
     gpg_keys: EEA14886
-    post_install_cmd: "echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 select true | /usr/bin/debconf-set-selections"
+    post_install_cmd: "echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 boolean true | debconf-set-selections ; echo oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections"
   newrelic:
-    url: "deb http://apt.newrelic.com/debian/ newrelic non-free"
+    url: 'deb [arch=amd64] http://apt.newrelic.com/debian/ newrelic non-free'
     gpg_keys: 548C16BF
   newrelic-infra:
-    url: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
+    url: "deb https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
     gpg_keys: BB29EE038ECCE87C
   artifacts_elastic_co_packages_5_x_apt:
     url: "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
