@@ -2,27 +2,26 @@
 # defaults file for roles/install-apt-repo
 configured_apt_repositories:
   backports:
-    url: "deb http://http.debian.net/debian {{ ansible_distribution_release }}-backports main non-free contrib"
+    url: deb http://http.debian.net/debian {{ ansible_distribution_release }}-backports main non-free contrib
     gpg_keys: 
       - 8B48AD6246925553
   docker:
-    url: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main"
+    url: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release|lower }} stable
     gpg_keys: 
-      - 58118E89F3A912897C070ADBF76221572C52609D
-      - DD911E995A64A202E85907D6BC14F10B6D085F96
+      - 7EA0A9C3F273FCD8
   dell:
     url: deb http://linux.dell.com/repo/community/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} openmanage
     gpg_keys:
       - 1285491434D8786F
   hwraid:
-    url: "deb http://hwraid.le-vert.net/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main"
+    url: deb http://hwraid.le-vert.net/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main
     gpg_keys:
       - 6005210E23B3D3B4
   non-free:
-    url: "deb http://ftp.uk.debian.org/debian/ jessie non-free"
+    url: deb http://ftp.uk.debian.org/debian/ {{ ansible_distribution_release|lower }} non-free
     gpg_keys:
   contrib:
-    url: "deb http://ftp.uk.debian.org/debian/ jessie contrib"
+    url: deb http://ftp.uk.debian.org/debian/ {{ ansible_distribution_release|lower }} contrib
     gpg_keys:
   java:
     url: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu/ {{ java_distribution_name|default(ansible_distribution_release) }} main" 
