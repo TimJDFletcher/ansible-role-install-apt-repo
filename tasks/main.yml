@@ -42,12 +42,20 @@
     gpgkey: "{{ configured_apt_repositories[repository]['redhat_gpg_keys'] }}"
     gpgcheck: yes
     repo_gpgcheck: yes
-    keepcache: 1
     state: present
   when: ansible_os_family == "RedHat"
 
-- name: Run post install command
+- name: Run post install command | Debian
   shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
-  when: configured_apt_repositories[repository]['post_install_cmd'] is defined
+  when:
+    - configured_apt_repositories[repository]['post_install_cmd'] is defined
+    - when: ansible_os_family == "Debian"
   changed_when: false
 
+- name: Run post install command | RedHat
+  shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
+  become: true
+  when:
+    - configured_apt_repositories[repository]['redhat_post_install_cmd'] is defined
+    - when: ansible_os_family == "RedHat"
+  changed_when: false
