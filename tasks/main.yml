@@ -57,5 +57,5 @@
   become: true
   when:
     - configured_apt_repositories[repository]['redhat_post_install_cmd'] is defined
-    - when: ansible_os_family == "RedHat"
+    - ansible_os_family == "RedHat"
   changed_when: false
