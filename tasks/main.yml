@@ -1,11 +1,19 @@
 ---
 # tasks file for roles/install-apt-repo
-- name: Install apt support packages
+
+- name: Install apt-transport-https package for Debian
   package:
     name: "{{ item }}"
     state: present
   with_items:
     - apt-transport-https
+  when: ansible_os_family == "Debian"
+
+- name: Install apt support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
     - ca-certificates
     - curl
     
