@@ -38,7 +38,8 @@ configured_apt_repositories:
   newrelic-infra:
     url: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
     gpg_keys: BB29EE038ECCE87C
-    redhat_url: "https://download.newrelic.com/infrastructure_agent/linux/yum/el/7/x86_64/newrelic-infra.repo"
+    redhat_url: "http://download.newrelic.com/infrastructure_agent/linux/yum/el/7/$basearch"
+    redhat_gpg_keys: "http://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg"
   artifacts_elastic_co_packages_5_x_apt:
     url: "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
     gpg_keys: D27D666CD88E42B4

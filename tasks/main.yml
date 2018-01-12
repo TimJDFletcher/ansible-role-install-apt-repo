@@ -34,12 +34,16 @@
     filename: "{{ repository }}"
   when: ansible_os_family == "Debian"
 
-- name: Install {{ repository }} repository Debian
+- name: Install {{ repository }} repository RedHat
   yum_repository:
     name: "{{ repository }}"
+    description: "{{ repository }} YUM repo"
     baseurl: "{{ configured_apt_repositories[repository]['redhat_url'] }}"
-    state: present
+    gpgkey: "{{ configured_apt_repositories[repository]['redhat_gpg_keys'] }}"
+    gpgcheck: yes
+    repo_gpgcheck: yes
     keepcache: 1
+    state: present
   when: ansible_os_family == "RedHat"
 
 - name: Run post install command
