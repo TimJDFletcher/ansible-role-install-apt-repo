@@ -24,13 +24,23 @@
     keyserver: pool.sks-keyservers.net
   with_items:
     - "{{ configured_apt_repositories[repository]['gpg_keys'] }}"
+  when: ansible_os_family == "Debian"
 
-- name: Install {{ repository }} repository
+- name: Install {{ repository }} repository Debian
   apt_repository:
     repo: "{{ configured_apt_repositories[repository]['url'] }}"
     state: present
     update_cache: true
     filename: "{{ repository }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install {{ repository }} repository Debian
+  yum_repository:
+    name: "{{ repository }}"
+    baseurl: "{{ configured_apt_repositories[repository]['redhat_url'] }}"
+    state: present
+    keepcache: 1
+  when: ansible_os_family == "RedHat"
 
 - name: Run post install command
   shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
