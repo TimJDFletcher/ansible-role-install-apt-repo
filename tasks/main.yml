@@ -1,11 +1,19 @@
 ---
 # tasks file for roles/install-apt-repo
-- name: Install apt support packages
+
+- name: Install apt-transport-https package for Debian
   package:
     name: "{{ item }}"
     state: present
   with_items:
     - apt-transport-https
+  when: ansible_os_family == "Debian"
+
+- name: Install apt support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
     - ca-certificates
     - curl
     
@@ -16,16 +24,38 @@
     keyserver: pool.sks-keyservers.net
   with_items:
     - "{{ configured_apt_repositories[repository]['gpg_keys'] }}"
+  when: ansible_os_family == "Debian"
 
-- name: Install {{ repository }} repository
+- name: Install {{ repository }} repository Debian
   apt_repository:
     repo: "{{ configured_apt_repositories[repository]['url'] }}"
     state: present
     update_cache: true
     filename: "{{ repository }}"
+  when: ansible_os_family == "Debian"
 
-- name: Run post install command
+- name: Install {{ repository }} repository RedHat
+  yum_repository:
+    name: "{{ repository }}"
+    description: "{{ repository }} YUM repo"
+    baseurl: "{{ configured_apt_repositories[repository]['redhat_url'] }}"
+    gpgkey: "{{ configured_apt_repositories[repository]['redhat_gpg_keys'] }}"
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Run post install command | Debian
   shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
-  when: configured_apt_repositories[repository]['post_install_cmd'] is defined
+  when:
+    - configured_apt_repositories[repository]['post_install_cmd'] is defined
+    - when: ansible_os_family == "Debian"
   changed_when: false
 
+- name: Run post install command | RedHat
+  shell: "{{ configured_apt_repositories[repository]['redhat_post_install_cmd'] }}"
+  become: true
+  when:
+    - configured_apt_repositories[repository]['redhat_post_install_cmd'] is defined
+    - ansible_os_family == "RedHat"
+  changed_when: false
