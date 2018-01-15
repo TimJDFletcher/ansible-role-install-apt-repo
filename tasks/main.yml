@@ -49,7 +49,7 @@
   shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
   when:
     - configured_apt_repositories[repository]['post_install_cmd'] is defined
-    - when: ansible_os_family == "Debian"
+    - ansible_os_family == "Debian"
   changed_when: false
 
 - name: Run post install command | RedHat
