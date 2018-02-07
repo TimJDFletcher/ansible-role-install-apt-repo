@@ -1,0 +1,19 @@
+---
+# tasks file for roles/install-apt-repo
+
+- name: Install {{ repository }} repository RedHat
+  yum_repository:
+    name: "{{ repository }}"
+    description: "{{ repository }} YUM repo"
+    baseurl: "{{ configured_apt_repositories[repository]['redhat_url'] }}"
+    gpgkey: "{{ configured_apt_repositories[repository]['redhat_gpg_keys'] }}"
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    state: present
+
+- name: Run post install command | RedHat
+  shell: "{{ configured_apt_repositories[repository]['redhat_post_install_cmd'] }}"
+  become: true
+  when:
+    - configured_apt_repositories[repository]['redhat_post_install_cmd'] is defined
+  changed_when: false

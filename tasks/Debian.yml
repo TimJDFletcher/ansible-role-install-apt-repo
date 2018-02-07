@@ -1,0 +1,30 @@
+---
+# tasks file for roles/install-apt-repo
+
+- name: Install apt-transport-https package for Debian
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+
+- name: Install GPG keys
+  apt_key:
+    id: "{{ item }}"
+    state: present
+    keyserver: pool.sks-keyservers.net
+  with_items:
+    - "{{ configured_apt_repositories[repository]['gpg_keys'] }}"
+
+- name: Install {{ repository }} repository Debian
+  apt_repository:
+    repo: "{{ configured_apt_repositories[repository]['url'] }}"
+    state: present
+    update_cache: true
+    filename: "{{ repository }}"
+
+- name: Run post install command | Debian
+  shell: "{{ configured_apt_repositories[repository]['post_install_cmd'] }}"
+  when:
+    - configured_apt_repositories[repository]['post_install_cmd'] is defined
+  changed_when: false
