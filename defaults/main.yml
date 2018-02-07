@@ -47,3 +47,6 @@ configured_apt_repositories:
   artifacts_elastic_co_packages_6_x_apt:
     url: "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
     gpg_keys: D27D666CD88E42B4
+    redhat_url: "https://artifacts.elastic.co/packages/6.x/yum"
+    redhat_gpg_keys: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+    redhat_post_install_cmd: "yum -q makecache -y --enablerepo='artifacts_elastic_co_packages_6_x_apt'"
