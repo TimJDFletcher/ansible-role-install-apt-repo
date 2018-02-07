@@ -9,4 +9,4 @@
     - ca-certificates
     - curl
 
-- include_tasks: {{ ansible_os_family }}.yml
+- include_tasks: "{{ ansible_os_family }}.yml"
